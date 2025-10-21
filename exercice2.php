@@ -86,3 +86,53 @@ function hash5_search_collision_file($method, $file, $nb_trials)
     fclose($file_handle);
     hash5_search_collision($method, $tab, $nb_trials);
 }
+
+/*
+ * 2-5
+ * Fonction permettant de trouver le nb d'essais moyen pour trouver une collision
+*/
+
+function average_collision_trials($method, $file, $nb_trials){
+    $tab = [];
+    $file_handle = fopen($file, "r");
+    while(!feof($file_handle)){
+        $line = fgets($file_handle);
+        $line = trim($line);
+        array_push($tab, $line);
+    }
+    fclose($file_handle);
+
+    $C = 0; /* varuable nombre d'essais moyen */
+    $c = 0; /* Compteur essais entre chaque collision */
+    $t = 1; /* Compteur nombre de collision */
+
+
+    for ($i = 0; $i < $nb_trials; $i++){
+        $c += 1;
+        $rand_ind = array_rand($tab, 2);
+        $h0 = hash5($method, $tab[$rand_ind[0]]);
+        $h1 = hash5($method, $tab[$rand_ind[1]]);
+        if($h0 == $h1){
+            $C += $c;
+            $c = 0;
+            $t += 1;
+        }
+    }
+    if($c == 0){
+        return -1; // Pas de collision trouvée
+    }
+    return $C / $t;
+
+}
+
+// Exemple d'utilisation des fonctions average collision trials
+$method = 'sha1';
+$file = 'data.txt';
+$nb_trials = 10000;
+$average_trials = average_collision_trials($method, $file, $nb_trials);
+if($average_trials != -1){
+    echo "Nombre moyen d'essais pour trouver une collision : " . $average_trials .
+    "\n";
+} else {
+    echo "Aucune collision trouvée lors des essais.\n";
+}
