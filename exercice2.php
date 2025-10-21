@@ -55,3 +55,20 @@ function hash5_search_collision($method, $tab, $nb_trials)
     }
 }
 
+/*
+* 2-4
+*/
+
+function hash5_search_preimage_file($method, $h, $file)
+{
+    $file_handle = fopen($file, "r");
+    while(!feof($file_handle)){
+        $line = fgets($file_handle);
+        $line = trim($line);
+        if(hash5($method, $line) == $h){
+            echo "préimage trouvée dans le fichier : " . $line . "\n";
+        }
+    }
+    fclose($file_handle);
+}
+
