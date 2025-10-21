@@ -72,3 +72,17 @@ function hash5_search_preimage_file($method, $h, $file)
     fclose($file_handle);
 }
 
+
+function hash5_search_collision_file($method, $file, $nb_trials)
+{
+    $tab = [];
+    $file_handle = fopen($file, "r");
+
+    while(!feof($file_handle)){
+        $line = fgets($file_handle);
+        $line = trim($line);
+        array_push($tab, $line);
+    }
+    fclose($file_handle);
+    hash5_search_collision($method, $tab, $nb_trials);
+}
