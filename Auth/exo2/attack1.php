@@ -21,7 +21,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 $response = curl_exec($ch);
 $url = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
 
-if( $url === $url1){
+if( $url == $url1){
     echo "Login successful\n";
 } else {
     echo "Login failed\n";
