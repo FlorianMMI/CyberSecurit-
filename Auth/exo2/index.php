@@ -11,7 +11,7 @@
     <title>Test</title>
   </head>
   <body>
-    <form method="POST" id="login" action="login1.php">
+    <form method="POST" id="login" action="login3.php">
 
       <h2>Authentification requise</h2>
       <div>
