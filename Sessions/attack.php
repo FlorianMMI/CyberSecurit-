@@ -1,7 +1,7 @@
 <?php
 
 
-$ch = curl_init('http://localhost:8000/login.php');
+$ch = curl_init('http://localhost:3000/Sessions/login.php');
 
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -23,6 +23,15 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
 /*      check if the session id is in the cookie file.         */
 /* *********************************************************** */
 
+$post = [
+    'username' => 'student',
+    'password' => 'student'
+];
+
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+$response = curl_exec($ch);
+
+
 
 /* *********************************************************** */
 /* Q3 : Authenticate on the site from a browser.               */
@@ -31,3 +40,11 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
 /*      page.                                                  */
 /* *********************************************************** */
 
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Cookie: PHPSESSID=n9tuhobof1085upv17jpqce1hi'
+]);
+curl_setopt($ch, CURLOPT_URL, 'http://localhost:3000/Sessions/home.php');
+curl_setopt($ch, CURLOPT_POST, false);
+$response = curl_exec($ch);
+echo $response;
+curl_close($ch);
