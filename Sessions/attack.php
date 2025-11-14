@@ -1,7 +1,7 @@
 <?php
 
 
-$ch = curl_init('http://localhost:3000/Sessions/login.php');
+$ch = curl_init('http://localhost:3000/Sessions/home.php');
 
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -23,13 +23,13 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, 'cookie.txt');
 /*      check if the session id is in the cookie file.         */
 /* *********************************************************** */
 
-$post = [
-    'username' => 'student',
-    'password' => 'student'
-];
+// $post = [
+//     'username' => 'student',
+//     'password' => 'student'
+// ];
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-$response = curl_exec($ch);
+// curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+// $response = curl_exec($ch);
 
 
 
@@ -40,11 +40,8 @@ $response = curl_exec($ch);
 /*      page.                                                  */
 /* *********************************************************** */
 
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    'Cookie: PHPSESSID=n9tuhobof1085upv17jpqce1hi'
-]);
-curl_setopt($ch, CURLOPT_URL, 'http://localhost:3000/Sessions/home.php');
-curl_setopt($ch, CURLOPT_POST, false);
-$response = curl_exec($ch);
-echo $response;
-curl_close($ch);
+curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=n9tuhobof1085upv17jpqce1hi'
+);
+
+$res = curl_exec($ch);
+echo $res;
